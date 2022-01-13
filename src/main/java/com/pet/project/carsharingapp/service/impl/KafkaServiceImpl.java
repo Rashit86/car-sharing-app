@@ -14,7 +14,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.time.Instant;
 import java.util.Map;
 
 @Slf4j
@@ -36,15 +36,28 @@ public class KafkaServiceImpl implements KafkaService {
     @Value("${car-sharing-app.kafka.value-serializer}")
     private Class valueSerializer;
 
+    @Value("${car-sharing-app.kafka.acks}")
+    private String acks;
+
+    @Value("${car-sharing-app.kafka.retries}")
+    private String retries;
+
+    @Value("${car-sharing-app.kafka.linger_ms}")
+    private String lingerMs;
+
+    @Value("${car-sharing-app.kafka.enable_idempotence}")
+    private String enableIdempotence;
+
     @Override
     public void reserve(String userName, CarModelEnum carModel) {
         CarRequest car = new CarRequest();
         car.setUserName(userName);
         car.setCarModel(carModel);
         car.setRequiredAction(RequiredActionEnum.RESERVE);
+        car.setTime(Instant.now().toString());
 
         logger.info("Sending json = '{}' to topic = '{}'", car, topicName);
-        getKafkaTemplate().send(topicName, car);
+        getKafkaTemplate().send(topicName, car.getCarModel().toString(), car);
     }
 
     @Override
@@ -53,16 +66,21 @@ public class KafkaServiceImpl implements KafkaService {
         car.setUserName(userName);
         car.setCarModel(carModel);
         car.setRequiredAction(RequiredActionEnum.CANCEL_RESERVATION);
+        car.setTime(Instant.now().toString());
 
         logger.info("Sending json = '{}' to topic = '{}'", car, topicName);
-        getKafkaTemplate().send(topicName, car);
+        getKafkaTemplate().send(topicName, car.getCarModel().toString(), car);
     }
 
     private KafkaTemplate<String, CarRequest> getKafkaTemplate() {
-        Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer);
-        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer);
-        return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(configProps));
+        return new KafkaTemplate<>(
+                new DefaultKafkaProducerFactory<>(
+                        Map.of(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,
+                                ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer,
+                                ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer,
+                                ProducerConfig.ACKS_CONFIG, acks,
+                                ProducerConfig.RETRIES_CONFIG, retries,
+                                ProducerConfig.LINGER_MS_CONFIG, lingerMs,
+                                ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, enableIdempotence)));
     }
 }

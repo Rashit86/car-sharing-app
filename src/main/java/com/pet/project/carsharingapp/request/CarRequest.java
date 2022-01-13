@@ -18,6 +18,6 @@ public class CarRequest implements Serializable {
     private String userName;
     private CarModelEnum carModel;
     private RequiredActionEnum requiredAction;
-
+    private String time;
 
 }
