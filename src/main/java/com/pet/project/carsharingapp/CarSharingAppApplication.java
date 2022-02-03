@@ -22,8 +22,6 @@ public class CarSharingAppApplication {
         return TopicBuilder
                 .name(carRequestTopic)
                 .partitions(1)
-                //TODO: если ставить больше 1 реплики, то топик не создается.
-                // Видимо потому что у нас создан только один бутстрап сервер
                 .replicas(1)
                 .build();
     }
