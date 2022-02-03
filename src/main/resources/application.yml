@@ -3,13 +3,18 @@ server:
   servlet:
     context-path: /api/cars
 
-car-sharing-app:
+spring:
   kafka:
-    bootstrap-servers: 127.0.0.1:9092
-    topic-name: car_request_topic
-    key-serializer: org.apache.kafka.common.serialization.StringSerializer
-    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    acks: all
-    retries: 3
-    linger_ms: 1
-    enable_idempotence: true
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 3
+      properties:
+        linger_ms: 1
+        enable_idempotence: true
+
+car-sharing-app:
+  topic-name:
+    car-request: car_request_topic

@@ -10,8 +10,8 @@ import org.springframework.kafka.config.TopicBuilder;
 @SpringBootApplication
 public class CarSharingAppApplication {
 
-    @Value("${car-sharing-app.kafka.topic-name}")
-    private String topicName;
+    @Value("${car-sharing-app.topic-name.car-request}")
+    private String carRequestTopic;
 
     public static void main(String[] args) {
         SpringApplication.run(CarSharingAppApplication.class, args);
@@ -20,7 +20,7 @@ public class CarSharingAppApplication {
     @Bean
     NewTopic createCarRequestTopic(){
         return TopicBuilder
-                .name(topicName)
+                .name(carRequestTopic)
                 .partitions(1)
                 //TODO: если ставить больше 1 реплики, то топик не создается.
                 // Видимо потому что у нас создан только один бутстрап сервер

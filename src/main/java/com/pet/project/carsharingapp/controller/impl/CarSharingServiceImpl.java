@@ -1,8 +1,9 @@
 package com.pet.project.carsharingapp.controller.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pet.project.carsharingapp.controller.api.CarSharingService;
+import com.pet.project.carsharingapp.request.CarRequest;
 import com.pet.project.carsharingapp.service.api.KafkaService;
-import com.pet.project.carsharingapp.enums.CarModelEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,7 @@ public class CarSharingServiceImpl implements CarSharingService {
     private final KafkaService kafkaService;
 
     @Override
-    public void reserve(String userName, CarModelEnum carModel) {
-        kafkaService.reserve(userName, carModel);
-    }
-
-    @Override
-    public void cancel(String userName, CarModelEnum carModel) {
-        kafkaService.cancel(userName, carModel);
+    public void rent(CarRequest request) throws JsonProcessingException {
+        kafkaService.rent(request);
     }
 }
