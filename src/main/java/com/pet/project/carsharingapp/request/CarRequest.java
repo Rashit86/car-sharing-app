@@ -35,6 +35,6 @@ public class CarRequest implements Serializable {
 
     @JsonSerialize(using = com.pet.project.carsharingapp.util.json.LocalDateTimeSerializer.class)
     @ApiModelProperty(hidden = true)
-    private LocalDateTime time;
+    private LocalDateTime dateTime;
 
 }
