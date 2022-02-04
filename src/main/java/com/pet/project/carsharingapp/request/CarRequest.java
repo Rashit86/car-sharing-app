@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@ApiModel
+@ApiModel("CarRequest")
 public class CarRequest implements Serializable {
 
     @NotNull
