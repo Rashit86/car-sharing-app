@@ -18,3 +18,12 @@ spring:
 car-sharing-app:
   topic-name:
     car-request: car_request_topic
+
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-uri: http://localhost:2227/oauth/token_key
+    client:
+      client-id: rentCarRequest
+      client-secret: rentCarRequestSecret
