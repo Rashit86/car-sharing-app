@@ -3,7 +3,7 @@ package com.pet.project.carsharingapp.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pet.project.carsharingapp.request.CarRequest;
-import com.pet.project.carsharingapp.service.api.KafkaService;
+import com.pet.project.carsharingapp.service.api.RentCarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KafkaServiceImpl implements KafkaService {
+public class RentCarServiceImpl implements RentCarService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 

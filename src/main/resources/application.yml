@@ -18,6 +18,7 @@ spring:
 car-sharing-app:
   topic-name:
     car-request: car_request_topic
+  base-package: com.pet.project.carsharingapp
 
 security:
   oauth2:

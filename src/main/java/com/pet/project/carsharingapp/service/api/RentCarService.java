@@ -5,7 +5,7 @@ import com.pet.project.carsharingapp.request.CarRequest;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public interface KafkaService {
+public interface RentCarService {
 
     void rent(CarRequest request) throws JsonProcessingException;
 }
