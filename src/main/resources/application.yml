@@ -26,5 +26,5 @@ security:
       jwt:
         key-uri: http://localhost:2227/oauth/token_key
     client:
-      client-id: rentCarRequest
-      client-secret: rentCarRequestSecret
+      client-id: rentCarClient
+      client-secret: rentCarSecret
