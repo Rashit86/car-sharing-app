@@ -1,8 +1,9 @@
 car-sharing-app:
   kafka:
-    topic-name: embedded-test-topic
-    auto-offset-reset: earliest
     group-id: test
-    test:
-      topic: embedded-test-topic
 
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: value
