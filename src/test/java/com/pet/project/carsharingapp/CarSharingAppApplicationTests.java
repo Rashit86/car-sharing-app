@@ -36,7 +36,7 @@ class CarSharingAppApplicationTests {
 
     @Test
     @WithMockUser(username = "test", authorities = "write")
-    void givenEmbeddedKafkaBroker_whenReserveCar_thenMessageReceived() throws Exception {
+    void reserveTest() throws Exception {
         CarRequest carRequest = new CarRequest();
         carRequest.setUserName("userName");
         carRequest.setCarModel(CarModelEnum.BMW);
@@ -51,7 +51,7 @@ class CarSharingAppApplicationTests {
 
     @Test
     @WithMockUser(username = "test", authorities = "write")
-    void givenEmbeddedKafkaBroker_whenCancelCarReservation_thenMessageReceived() throws Exception {
+    void cancelReservationTest() throws Exception {
         CarRequest carRequest = new CarRequest();
         carRequest.setUserName("userName");
         carRequest.setCarModel(CarModelEnum.BMW);
