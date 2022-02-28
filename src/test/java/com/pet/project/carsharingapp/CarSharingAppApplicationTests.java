@@ -8,6 +8,7 @@ import com.pet.project.carsharingapp.request.CarRequest;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
@@ -28,6 +29,9 @@ import static org.hamcrest.Matchers.equalTo;
 @AutoConfigureMockMvc
 class CarSharingAppApplicationTests {
 
+    @Value("${car-sharing-app.topic-name.car-request}")
+    private String carRequestTopicName;
+
     @Autowired
     private KafkaConsumer consumer;
 
@@ -46,7 +50,7 @@ class CarSharingAppApplicationTests {
         consumer.getLatch().await(10, TimeUnit.SECONDS);
 
         MatcherAssert.assertThat(consumer.getLatch().getCount(), equalTo(0L));
-        MatcherAssert.assertThat(consumer.getPayload(), containsString("car_request_topic"));
+        MatcherAssert.assertThat(consumer.getPayload(), containsString(carRequestTopicName));
     }
 
     @Test
